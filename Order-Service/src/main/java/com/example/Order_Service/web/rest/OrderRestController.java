@@ -2,7 +2,8 @@ package com.example.Order_Service.web.rest;
 
 
 import com.example.Order_Service.model.Order;
-import com.example.Order_Service.service.OrderService;
+import com.example.Order_Service.repository.OrderRepository;
+import com.example.Order_Service.service.OrderServiceImpl;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,29 +12,23 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderRestController {
 
-    private final OrderService service;
+    private final OrderServiceImpl orderService;
+    private final OrderRepository orderRepository; // <--- On a ajouté ça
 
-    public OrderRestController(OrderService service) {
-        this.service = service;
+    public OrderRestController(OrderServiceImpl orderService, OrderRepository orderRepository) {
+        this.orderService = orderService;
+        this.orderRepository = orderRepository;
     }
 
+    // TA MÉTHODE EXISTANTE (POST)
     @PostMapping
-    public Order create(@RequestBody Order order) {
-        return service.createOrder(order);
+    public Order createOrder(@RequestBody Order order) {
+        return orderService.createOrder(order);
     }
 
-    @GetMapping("/customer/{id}")
-    public List<Order> getByCustomer(@PathVariable Long id) {
-        return service.getOrdersByCustomer(id);
-    }
-
-    @PutMapping("/{id}/status")
-    public Order updateStatus(@PathVariable Long id, @RequestParam String status) {
-        return service.updateStatus(id, status);
-    }
-
-    @GetMapping("/{id}/total")
-    public Double getTotal(@PathVariable Long id) {
-        return service.calculateTotal(id);
+    // --- LA SOLUTION À TON ERREUR 405 (GET) ---
+    @GetMapping
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
     }
 }
