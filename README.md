@@ -1,5 +1,5 @@
 📦 Gestion Unifiée des Commandes Multi-Canaux
-Projet réalisé dans le cadre du module Architecture de Composants (ATOS)
+Projet réalisé dans le cadre du module Architecture de Composants 
 👥 Équipe : 3 étudiants (Salma + 2 collaborateurs)
 📝 Description du projet
 
