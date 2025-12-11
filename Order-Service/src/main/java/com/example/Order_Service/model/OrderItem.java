@@ -1,8 +1,6 @@
 package com.example.Order_Service.model;
 
 
-
-
 import jakarta.persistence.*;
 
 @Entity
